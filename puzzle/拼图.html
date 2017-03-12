@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-2.2.4.js"></script>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+			li{
+				background: url(img/aeb09993jw1e061aauiwpj.jpg);
+			}
+			#wrap{
+				width: 660px;
+				margin: 50px auto;
+				
+			}
+			#oUl{
+				margin-top: 30px;
+				border:2px solid #000;
+				overflow: hidden;
+				height:450px;
+				padding: 25px 25px;
+				position: relative;
+			}
+			#oUl li{
+				float:left;
+				width:200px;
+				height:150px;
+				z-index: 1;
+			}
+			#oUl .active{
+				border:2px dashed #000;
+			}
+			
+		</style>
+		<script type="text/javascript">
+		
+			$(function(){
+				var lis = $('#oUl li');
+				var arr = [];
+				
+				lis.each(function(i,ele){
+					arr.push({
+						left:$(ele).position().left,
+						top:$(ele).position().top
+					})
+					$(ele).css({backgroundPositionX: -i%3*200,backgroundPositionY:Math.floor(i/3)*-150})
+				})
+				
+				//li把浮动变成定位
+				
+				lis.each(function(i,ele){
+					$(ele).css({
+						position:"absolute",
+						top:arr[i].top,
+						left:arr[i].left,
+						margin:0
+					})
+					ele.dataset.index = i;//给每个行间加上自定义
+					Darg($(ele));
+				})
+				var zIndex = 2;
+				function Darg(obj){
+					
+					obj.on('mousedown',function(ev){
+						var minObj = null;  //用于装最小元素
+
+						obj.css({
+							zIndex:zIndex++//点一下层级就++
+						})
+						
+						var disx = ev.pageX - obj.position().left;//碰撞元素的left值和top的差
+						var disy = ev.pageY - obj.position().top;
+						
+						$(document).on('mousemove',function(ev){
+							var arr2 = []; //装碰撞到的元素放到这个数组里面
+							var min = Infinity; //用于判断最小距离
+							//bengBong(obj,obj2);
+							lis.each(function(i,ele){
+								if(ele == obj[0]){  //排斥自己，其他元素可以比较
+									return
+								}
+								if(bengBong(obj[0],ele)){  //如果碰撞，把碰撞的元素放到数组里面
+									arr2.push(ele)
+								}
+//								console.log(arr2);
+								$.each(arr2,function(i,ele){//循环碰撞到的元素
+									//使用勾股定理
+									var x = obj[0].offsetLeft - arr2[i].offsetLeft;//和碰撞那个和点击那个计算出的差值
+									var y = obj[0].offsetTop - arr2[i].offsetTop;
+									
+									var sqrt = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+									
+									if(sqrt < min){
+										min = sqrt;
+										minObj = ele;   //选中距离最短的元素
+									}							
+								})
+							})
+							//给选中距离最近的元素加边框，其他的去掉边框
+							$(minObj).addClass('active').siblings('li').removeClass('active');
+							
+							
+							obj.css({
+								left:ev.pageX - disx,//鼠标的位置减去元素的定位值
+								top:ev.pageY - disy
+							})
+						})
+						
+						$(document).on('mouseup',function(ev){//鼠标抬起
+							if(minObj){//如果有被碰到
+									obj.stop().animate({//点的那个运动
+									left:arr[minObj.dataset.index].left,//点击那个left等于被碰到元素的值
+									top:arr[minObj.dataset.index].top//点击那个top等于被碰到元素的值
+								})
+								$(minObj).stop().animate({
+									left:arr[obj[0].dataset.index].left,//被碰到的那个left等于一开始点击自身的left
+									top:arr[obj[0].dataset.index].top//被碰到的那个top等于一开始点击自身的top
+								})
+								
+								var temp = obj[0].dataset.index;//创建一个变量等于点击那个自定义属性
+								obj[0].dataset.index = minObj.dataset.index;//点击那个的自定义属性等于被碰到的那个自定义属性
+								minObj.dataset.index = temp;//被碰到的自定义等于点击那个
+								
+								lis.removeClass('active');//所有li清洗class
+							}else{
+								obj.stop().animate({
+									left:arr[obj[0].dataset.index].left,//如果没碰到就返回原先的值
+									top:arr[obj[0].dataset.index].top
+								})
+							}
+							
+							$(this).off();//解除事件
+						})
+						
+						
+						
+						return false;
+					})
+					
+				}
+				
+				$('input').on('click',function(){
+					arr.sort(function(){
+						return Math.random()-0.5;//要么正要么负
+					});
+					
+					$.each(arr,function(i,ele){
+						$(lis[i]).stop().animate({
+							left:arr[i].left,
+							top:arr[i].top
+						})
+						lis[i].dataset.index = i;
+					})
+				})
+				
+				function bengBong(obj1,obj2){
+					
+					var b1 = obj1.getBoundingClientRect();
+					var b2 = obj2.getBoundingClientRect();
+					
+					var right1 = b1.right;
+					var left1 = b1.left;
+					var top1 = b1.top;
+					var bot1 = b1.bottom;
+					
+					var right2 = b2.right;
+					var left2 = b2.left;
+					var top2 = b2.top;
+					var bot2 = b2.bottom;
+					
+					if(right1>=left2 && bot1>=top2 && right2 >= left1 && bot2>=top1){
+						return true;  //说明碰到
+					}else{
+						return false;
+					}
+				}
+				
+			})
+			
+		</script>
+	</head>
+	<body>
+		<div id="wrap">
+			<input type="button" name="" id="" value="打乱" />
+			<ul id="oUl">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>	
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>	
+			</ul>
+		</div>
+	</body>
+</html>
