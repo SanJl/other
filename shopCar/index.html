@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.warp{
+				width: 610px;
+				margin: auto;
+				margin-top: 200px;
+			}
+			.pic img{
+				width: 100%;
+				height: 100%;
+			}
+			.pic-list{
+				width: 160px;
+				height: 230px;
+				padding: 20px;
+				border-right: 1px solid gainsboro;
+				float: left;
+			}
+			.pic-list p{
+				color: gray;
+				font-size: 13px;
+				line-height: 45px;
+			}
+			.pic-pri{
+				margin-top: 5px;
+				float: left;
+				font-size: 18px;
+				font-weight: bold;
+			}
+			.pic-pri i{
+				font-size: 14px;
+				color: gray;
+				margin-right: 2px;
+				position: relative;
+				top: -5px;
+			}
+			.shop-car{
+				width: 100px;
+				height: 30px;
+				background: darkred;
+				color: white;
+				border: 1px solid darkred;
+				float: right;
+			}
+			.shopping{
+				position: fixed;
+				right: 0;
+				top: 20px;
+			}.shop-num{
+				position: absolute;
+				top: 0;
+				left: 45%;
+				width: 15px;
+				text-align: center;
+				line-height: 15px;
+				padding: 5px;
+				border-radius: 50%;
+				background: red;
+				color: white;
+			}
+			.shop-list{
+				position: fixed;
+				right: 20px;
+				top: 150px;
+				width: 200px;
+				height: 240px;
+				padding: 10px;
+				border: 1px solid darkred;
+				overflow: auto;
+			}
+			.shop-list ul{
+				height: 230px;
+				list-style: none;
+			}
+			.shop-list li{
+				height: 50px;
+				text-align: center;
+			}
+			.shop-list img{
+				width: 40px;
+				height: 40px;
+				float: left;
+				margin-right: 8px;
+			}
+			.shop-btn{
+				width: 15px;
+				line-height: 15px;
+				float: left;
+				border: 1px solid darkgray;
+				margin-top: 12px;
+			}
+			.shop-btn1{
+				width: 15px;
+				line-height: 15px;
+				float: left;
+				border: 1px solid darkgray;
+				margin-top: 12px;
+			}
+			.shop-list span{
+				margin-top: 12px;
+				width: 25px;
+				line-height: 15px;
+				float: left;
+				display: block;
+				border-top: 1px solid darkgray;
+				border-bottom: 1px solid darkgray;
+			}
+			.shop-mon{
+				line-height: 40px;
+				color: red;
+				width: 20px;
+				float: left;
+				margin-left: 5px;
+			}
+			.shop-del{
+				float: right;
+				line-height: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="warp">
+			<div class="pic-list">
+				<div class="pic">
+					<img src="img/TB25hOFjVXXXXXlXXXXXXXXXXXX_!!2471189597.jpg_160x160q90.jpg"/>
+				</div>
+				<p>智利牛油果</p>
+				<div class="pic-pri"><i>￥</i>39.9</div>
+				<button class="shop-car">加入购物车</button>
+			</div>
+			<div class="pic-list">
+				<div class="pic">
+					<img src="img/TB2B2gUkpXXXXbeXXXXXXXXXXXX_!!2471189597.jpg_160x160q90.jpg"/>
+				</div>
+				<p>利口福荷香罗米鸡</p>
+				<div class="pic-pri"><i>￥</i>15.8</div>
+				<button class="shop-car">加入购物车</button>
+			</div>
+			<div class="pic-list">
+				<div class="pic">
+					<img src="img/TB2bZXIabtlpuFjSspfXXXLUpXa_!!2471189597.jpg_160x160q90.jpg"/>
+				</div>
+				<p>卡士鲜奶酪</p>
+				<div class="pic-pri"><i>￥</i>15.8</div>
+				<button class="shop-car">加入购物车</button>
+			</div>
+			<div class="pic-list">
+				<div class="pic">
+					<img src="img/TB2ldNNcFXXXXajXXXXXXXXXXXX_!!2471189597.jpg_160x160q90.jpg"/>
+				</div>
+				<p>南美白虾仁</p>
+				<div class="pic-pri"><i>￥</i>29.0</div>
+				<button class="shop-car">加入购物车</button>
+			</div>
+			<div class="pic-list">
+				<div class="pic">
+					<img src="img/TB2n8MCahvzQeBjSZFqXXXN5VXa_!!2471189597.jpg_160x160q90.jpg"/>
+				</div>
+				<p>原味三文鱼</p>
+				<div class="pic-pri"><i>￥</i>48.8</div>
+				<button class="shop-car">加入购物车</button>
+			</div>
+			<div class="pic-list">
+				<div class="pic">
+					<img src="img/TB2V_J9eFXXXXbVXpXXXXXXXXXX_!!2471189597.jpg_160x160q90.jpg"/>
+				</div>
+				<p>联豪西冷牛排</p>
+				<div class="pic-pri"><i>￥</i>9.9</div>
+				<button class="shop-car">加入购物车</button>
+			</div>
+			<div class="shop-list">
+				<ul>
+					<!--<li>
+						<div class="shop-pic"><img src="img/TB25hOFjVXXXXXlXXXXXXXXXXXX_!!2471189597.jpg_160x160q90.jpg"/></div>
+						<div class="shop-btn">-</div><span>0</span><div class="shop-btn">+</div>
+						<div class="shop-mon">￥9.99</div><div class="shop-del">X</div>
+					</li>-->
+				</ul>
+			</div>
+		</div>
+		<div class="shopping">
+			<img src="img/g1.png"/>
+			<span class="shop-num">0</span>
+		</div>
+		<script type="text/javascript">
+			var num =1;
+			$(function(){
+				$('.shop-car').each(function(i,ele){
+					$(ele).click(function(){
+						var pic = $(this).parent().find('.pic');
+						var shopImg = $(this).parent().find('.pic').html();
+						var shopPri = $(this).parent().find('.pic-pri').html();
+						var cloneimg = pic.clone();
+						cloneimg.appendTo('body').css({
+							width:80,
+							height:80,
+							border:'1px solid darkred',
+							padding:5,
+							position: 'absolute',
+							top:$(this).offset().top,
+							left:$(this).offset().left+$(this).width()
+						}).animate({
+							width:50,
+							height:50,
+							opacity:.4,
+							top:$('.shopping').offset().top+40,
+							left:$('.shopping').offset().left
+						},1000,"linear",function(){
+							cloneimg.animate({
+								width:0,
+								height:0,
+								opacity:0
+							},function(){
+								$('.shop-num').html(num++);
+								cloneimg.remove();
+								var lis = $('<li></li>');
+								lis.html('<div>'+shopImg+'</div><div class=shop-btn1>-</div><span></span><div class=shop-btn>+</div><div class=shop-mon>'+shopPri+'</div><div class=shop-del>X</div>')
+								lis.appendTo($('.shop-list ul'));
+								var num2 =1;
+								$('.shop-btn').each(function(i,ele){
+									console.log(ele)
+									$(ele).click(function(){
+										$($('.shop-list span')[i]).html(++num2);
+									})
+								})
+							})
+						})	
+					})
+				})
+			})
+		</script>
+	</body>
+</html>
