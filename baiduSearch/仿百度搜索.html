@@ -1,10 +1,83 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="{CHARSET}">
+		<meta charset="UTF-8">
 		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			input{
+				width:300px;
+				height:50px;
+				color: #f60;
+				font-size: 30px;
+			}
+			ul{
+				width:300px;
+				border:1px solid #000;
+				display: none;
+			}
+			li{
+				list-style: none;
+				height:30px;
+				border-bottom:1px solid #f60;
+			}
+			li:hover{
+				background: #f60;
+				cursor: pointer;
+			}
+			#box{
+				width:400px;
+				margin: 20px auto;
+			}
+			li a {
+				text-decoration: none;
+				color: #000;
+				height:30px;
+				width: 100%;
+				display: block;
+			}
+		</style>
 	</head>
 	<body>
+		<div id="box">
+			<input type="text" name="" id="txt" value="" />
+			<ul id="list">
+				
+			</ul>
+		</div>
 		
+		<script type="text/javascript">
+		
+			window.onload = function(){
+				var body = document.getElementsByTagName('body')[0];
+				var txt = document.getElementById('txt');	
+				txt.onkeyup = function(){					
+					var val = txt.value;					
+					var oS = document.createElement('script');	
+					
+					oS.src = 'https://suggest.taobao.com/sug?code=utf-8&q='+val+'&_ksTS=1489639061678_8524&callback=fn';	
+					document.body.appendChild(oS);
+					body.removeChild(oS);
+				}
+				window['fn'] = function(date){				
+					var list = document.getElementById('list');
+					var arr = date.result;							
+					list.innerHTML = '';					
+					if(date.result){								
+						for(var i=0;i<arr.length;i++){		
+							list.innerHTML += '<li><a href="https://list.tmall.com/search_product.htm?q='+arr[i][0]+'" target="_blank">'+arr[i][0]+"</a></li>";
+						}
+						list.style.display = 'block';		
+					}else{
+						list.style.display = 'none';		
+					}
+					console.log(date)
+				}
+			}
+		</script>
 	</body>
 </html>
+
