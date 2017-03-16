@@ -197,8 +197,6 @@
 				$('.shop-car').each(function(i,ele){
 					$(ele).click(function(){
 						var pic = $(this).parent().find('.pic');
-						var shopImg = $(this).parent().find('.pic').html();
-						var shopPri = $(this).parent().find('.pic-pri').html();
 						var cloneimg = pic.clone();
 						cloneimg.appendTo('body').css({
 							width:80,
@@ -222,16 +220,6 @@
 							},function(){
 								$('.shop-num').html(num++);
 								cloneimg.remove();
-								var lis = $('<li></li>');
-								lis.html('<div>'+shopImg+'</div><div class=shop-btn1>-</div><span></span><div class=shop-btn>+</div><div class=shop-mon>'+shopPri+'</div><div class=shop-del>X</div>')
-								lis.appendTo($('.shop-list ul'));
-								var num2 =1;
-								$('.shop-btn').each(function(i,ele){
-									console.log(ele)
-									$(ele).click(function(){
-										$($('.shop-list span')[i]).html(++num2);
-									})
-								})
 							})
 						})	
 					})
